@@ -16,7 +16,7 @@ const ContactForm = () => {
 				type: 'personal'
 			})
 		}
-	}, [contactContext, contactContext.current])
+	}, [contactContext])
 
 	const [ contact, setContact ] = useState({
 		name: '',
