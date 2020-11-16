@@ -1,9 +1,22 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 const ContactForm = () => {
 	// in order to have access to any methods or state in context
 	const contactContext = useContext(ContactContext);
+
+	useEffect(() => {
+		if (contactContext.current !== null) {
+			setContact(contactContext.current)
+		} else {
+			setContact({
+				name: '',
+				email: '',
+				phone: '',
+				type: 'personal'
+			})
+		}
+	}, [contactContext, contactContext.current])
 
 	const [ contact, setContact ] = useState({
 		name: '',
@@ -21,19 +34,22 @@ const ContactForm = () => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-		// addContact will be in our state
-		contactContext.addContact(contact);
-		setContact({
-			name: '',
-			email: '',
-			phone: '',
-			type: 'personal'
-		})
+		if(contactContext.current === null) {
+			// addContact will be in our state
+			contactContext.addContact(contact);
+		} else {
+			contactContext.updateContact(contact)
+		}
+		clearAll();
+	}
+
+	const clearAll = () => {
+		contactContext.clearCurrent();
 	}
 
 	return (
 		<form onSubmit={onSubmit}>
-			<h2 className="text-primary">Add Contact</h2>
+			<h2 className="text-primary">{contactContext.current ? 'Edit Contact' : 'Add Contact'}</h2>
 			<input
 				type="text"
 				placeholder="Name"
@@ -71,8 +87,11 @@ const ContactForm = () => {
 				onChange={onChange}
 			/> Professional
 			<div>
-				<input type="submit" value="Add Contact" className="btn btn-primary btn-block"/>
+				<input type="submit" value={contactContext.current ? 'Update Contact' : 'Add Contact'} className="btn btn-primary btn-block"/>
 			</div>
+			{contactContext.current && <div>
+				<button className="btn btn-light btn-block" onClick={clearAll}>Clear</button>
+			</div>}
 		</form>
 	)
 }
