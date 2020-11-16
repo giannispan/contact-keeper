@@ -10,10 +10,10 @@ const ContactItem = (props) => {
 			</h3>
 			<ul className="list">
 				{props.contact.email && (<li>
-					<i className="fas fa-envelope-open"></i> {props.contact.email}
+					<i className="fas fa-envelope-open"/> {props.contact.email}
 				</li>)}
 				{props.contact.phone && (<li>
-					<i className="fas fa-phone"></i> {props.contact.phone}
+					<i className="fas fa-phone"/> {props.contact.phone}
 				</li>)}
 			</ul>
 			<p>
