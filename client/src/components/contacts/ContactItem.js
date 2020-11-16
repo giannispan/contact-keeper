@@ -8,6 +8,7 @@ const ContactItem = (props) => {
 
 	const onDelete = () => {
 		contactContext.deleteContact(props.contact.id);
+		contactContext.clearCurrent();
 	}
 
 	return (
@@ -25,7 +26,7 @@ const ContactItem = (props) => {
 				</li>)}
 			</ul>
 			<p>
-				<button className="btn btn-dark btn-sm">Edit</button>
+				<button className="btn btn-dark btn-sm" onClick={() => contactContext.setCurrent(props.contact)}>Edit</button>
 				<button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
 			</p>
 		</div>
