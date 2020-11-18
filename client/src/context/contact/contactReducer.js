@@ -10,7 +10,7 @@ export default (state, action) => {
 		case actions.DELETE_CONTACT:
 			return {
 				...state,
-				contacts: state.contacts.filter(contact => contact.id !== action.payload)
+				contacts: state.contacts.filter(contact => contact._id !== action.payload)
 			}
 		case actions.SET_CURRENT:
 			return {
@@ -25,7 +25,7 @@ export default (state, action) => {
 		case actions.UPDATE_CONTACT:
 			return {
 				...state,
-				contacts: state.contacts.map(contact => contact.id === action.payload.id ?
+				contacts: state.contacts.map(contact => contact._id === action.payload.id ?
 				action.payload : contact)
 			}
 		case actions.FILTER_CONTACTS:
@@ -40,6 +40,11 @@ export default (state, action) => {
 			return {
 				...state,
 				filtered: null
+			}
+		case actions.CONTACT_ERROR:
+			return {
+				...state,
+				error: action.payload
 			}
 		default:
 			return state;

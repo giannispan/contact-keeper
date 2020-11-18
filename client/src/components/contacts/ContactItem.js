@@ -7,7 +7,7 @@ const ContactItem = (props) => {
 	const contactContext = useContext(ContactContext);
 
 	const onDelete = () => {
-		contactContext.deleteContact(props.contact.id);
+		contactContext.deleteContact(props.contact._id);
 		contactContext.clearCurrent();
 	}
 
