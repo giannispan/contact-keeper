@@ -88,7 +88,9 @@ const AuthState = props => {
 
 	// Logout
 	const logout = () => {
-
+		dispatch({
+			type: actions.LOGOUT
+		})
 	}
 
 	// Clear errors
