@@ -2,15 +2,24 @@ import * as actions from '../types';
 
 export default (state, action) => {
 	switch (action.type) {
+		case actions.GET_CONTACTS: {
+			return {
+				...state,
+				contacts: action.payload,
+				loading: false
+			}
+		}
 		case actions.ADD_CONTACT:
 			return {
 				...state,
-				contacts: [...state.contacts, action.payload]
+				contacts: [...state.contacts, action.payload],
+				loading: false
 			}
 		case actions.DELETE_CONTACT:
 			return {
 				...state,
-				contacts: state.contacts.filter(contact => contact._id !== action.payload)
+				contacts: state.contacts.filter(contact => contact._id !== action.payload),
+				loading: false
 			}
 		case actions.SET_CURRENT:
 			return {
@@ -26,7 +35,8 @@ export default (state, action) => {
 			return {
 				...state,
 				contacts: state.contacts.map(contact => contact._id === action.payload.id ?
-				action.payload : contact)
+				action.payload : contact),
+				loading: false
 			}
 		case actions.FILTER_CONTACTS:
 			return {
@@ -45,6 +55,14 @@ export default (state, action) => {
 			return {
 				...state,
 				error: action.payload
+			}
+		case actions.CLEAR_CONTACTS:
+			return {
+				...state,
+				contacts: null,
+				filtered: null,
+				error: null,
+				current: null
 			}
 		default:
 			return state;
